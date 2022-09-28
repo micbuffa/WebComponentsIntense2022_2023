@@ -51,18 +51,19 @@ class myComponent extends HTMLElement {
 
     this.player = this.shadowRoot.querySelector('#player');
 
-    this.player.onplay = () => {
-      // pour démarrer webaudio lors d'un click...
-      console.log("play");
-      this.ctx.resume();
-    }
+    
 
     this.buildGraph();
 
     // pour dessiner/animer
     this.canvas = this.shadowRoot.querySelector('#myCanvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.canvasCtx = this.canvas.getContext('2d');
 
+    this.player.onplay = () => {
+      // pour démarrer webaudio lors d'un click...
+      console.log("play");
+      this.ctx.resume()
+    }
 
     this.defineListeners();
 
@@ -74,10 +75,10 @@ class myComponent extends HTMLElement {
 
   animation() {
     // 1 - on efface le canvas
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // 2 - je dessine la waveform
-    this.ctx.fillRect(10+Math.random()*10, 10, 20, 20);
+    this.canvasCtx.fillRect(10+Math.random()*10, 10, 20, 20);
 
     // 3 - on rappelle la fonction dans 1/60ème de seconde
     requestAnimationFrame(() => {
